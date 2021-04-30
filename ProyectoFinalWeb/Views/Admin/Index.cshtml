@@ -1,0 +1,145 @@
+﻿@model IEnumerable<ProyectoFinalWeb.Pelicula>
+
+@{
+    ViewBag.Title = "Menu";
+    Layout = null;
+}
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script type="application/x-javascript">
+        addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+                function hideURLbar(){ window.scrollTo(0,1); } </script>
+    @*<link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" media="all" />*@
+    <link href="~/Content/style.css" rel="stylesheet" type="text/css" media="all" />
+    @*<link rel="stylesheet" href="~/Content/contactstyle.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="~/Content/faqstyle.css" type="text/css" media="all" />*@
+    @*<link href="~/Content/single.css" rel='stylesheet' type='text/css' />
+    <link href="~/Content/medile.css" rel='stylesheet' type='text/css' />*@
+    <!-- banner-slider -->
+    @*<link href="~/Content/jquery.slidey.min.css" rel="stylesheet">*@
+    <!-- //banner-slider -->
+    <!-- pop-up -->
+    @*<link href="~/Content/popuo-box.css" rel="stylesheet" type="text/css" media="all" />*@
+    <!-- //pop-up -->
+    <!-- font-awesome icons -->
+    <link rel="stylesheet" href="~/Content/font-awesome.min.css" />
+    <!-- //font-awesome icons -->
+    <!-- js -->
+    @*<script type="text/javascript" src="~/js/jquery-2.1.4.min.js"></script>*@
+    <!-- //js -->
+    <!-- banner-bottom-plugin -->
+    @*<link href="~/Content/owl.carousel.css" rel="stylesheet" type="text/css" media="all">
+    <script src="~/js/owl.carousel.js"></script>*@
+    @*<script>
+        $(document).ready(function () {
+            $("#owl-demo").owlCarousel({
+
+                autoPlay: 3000, //Set AutoPlay to 3 seconds
+
+                items: 5,
+                itemsDesktop: [640, 4],
+                itemsDesktopSmall: [414, 3]
+
+
+            });
+        });
+    </script>*@
+    <!-- //banner-bottom-plugin -->
+    <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300' rel='stylesheet' type='text/css'>
+    <!-- start-smoth-scrolling -->
+    @*<script type="text/javascript" src="~/js/move-top.js"></script>
+    <script type="text/javascript" src="~/js/easing.js"></script>
+    <link href="//cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
+            });
+        });
+    </script>*@
+    <style>
+        body {
+            background-image: url("https://s3-us-west-2.amazonaws.com/flx-editorial-wordpress/wp-content/uploads/2018/03/13153742/RT_300EssentialMovies_700X250.jpg");
+        }
+    </style>
+    <!-- start-smoth-scrolling -->
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="w3layouts_logo">
+                <a href="/Pelicula/Index"><h1>One<span>Movies</span></h1></a>
+            </div>
+            <div class="w3l_sign_in_register ml-5">
+                @*<ul>
+                        <li id="ModoADM"><a href="/Admin/Index">Modo Administrador</a></li>
+                    </ul>*@
+                <ul>
+                    <li class="nav-item w-100 mt-2" style="margin-left:50%">
+                        @Html.Partial("_LoginPartial")
+                    </li>
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <!-- //bootstrap-pop-up -->
+    <div class="movies_nav">
+        <div class="container">
+            <nav class="navbar navbar-default">
+                <div class="navbar-header navbar-left">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+                    <nav>
+                        <ul class="nav navbar-nav">
+                            <li id="InicioP"><a href="/Pelicula/Index">Inicio</a></li>
+                            <li id="InicioL"><a href="/Pelicula/Lista">Lista de peliculas</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <button class="btn btn-group" style=" margin: 10px; padding:10px; top: 50%; left: 43%;">
+        @Html.ActionLink("Agregar peliculla", "Create")
+    </button>
+
+    <div class="container container2">
+        <div class="row">
+            @foreach (var item in Model.Reverse())
+            {
+                <div class="contenedorADM col-sm-3">
+                    <div>
+                        <h3>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </h3>
+                    </div>
+                    <div>
+                        <img src="@Url.Action("RetrieveImage", new { id = @item.IdPelicula })" alt="no se ve" title="album-name" class="img-responsive img-CRUD" />
+                    </div>
+                    <div class="btn-group">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.IdPelicula }, new { @class = "btn btn-success" })
+                        @Html.ActionLink("Details", "Details", new { id = item.IdPelicula }, new { @class = "btn btn-warning" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.IdPelicula }, new { @class = "btn btn-primary" })
+                    </div>
+                </div>
+             }
+            </div>
+    </div>
+    </body>
+
+
+
